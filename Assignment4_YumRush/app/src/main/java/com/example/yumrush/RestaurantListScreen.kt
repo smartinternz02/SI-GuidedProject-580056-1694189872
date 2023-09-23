@@ -10,20 +10,15 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.Badge
-import androidx.compose.material3.BadgedBox
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CardElevation
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -55,19 +50,14 @@ fun RestaurantListScreen(navController: NavController, cartViewModel: CartViewMo
             title = {
                 Text(text = "YumRush - Explore the Restaurants")
             },
-            actions = {
-                CartIcon(navController, cartViewModel)
-            },
             modifier = Modifier.fillMaxWidth()
         )
 
-        // Display three restaurants with images
         RestaurantListItemWithImage(
             "President Dhaba",
             R.drawable.restaurant1,
             "Rating: 4.0",
         ) {
-            // Navigate to the respective restaurant page with ID
             navController.navigate("restaurantDetails/1")
         }
 
@@ -94,7 +84,7 @@ fun RestaurantListItemWithImage(name: String, imageResId: Int, rating: String, o
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
-            .clickable { onClick() }, // Handle click event
+            .clickable { onClick() },
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
         Row(
@@ -104,7 +94,7 @@ fun RestaurantListItemWithImage(name: String, imageResId: Int, rating: String, o
         ) {
             Image(
                 painter = painterResource(id = imageResId),
-                contentDescription = null, // You can provide a description here
+                contentDescription = null,
                 modifier = Modifier
                     .size(50.dp)
                     .clip(MaterialTheme.shapes.medium)
@@ -133,24 +123,21 @@ fun CartIcon(navController: NavController, cartViewModel: CartViewModel) {
         modifier = Modifier
             .padding(8.dp)
             .clickable {
-                // Navigate to the cart screen when the icon is clicked
                 navController.navigate("cart")
             }
     ) {
         Icon(
             imageVector = Icons.Default.ShoppingCart,
-            contentDescription = null, // You can provide a description here
-            tint = Color.White
+            contentDescription = null,
+            tint = Color.Black
         )
-
-        // Display the cart item count (you can customize this part)
         val cartItemCount = cartViewModel.getCartItemCount()
         if (cartItemCount > 0) {
             Badge {
                 Text(
                     text = cartItemCount.toString(),
                     color = Color.White,
-                    style = TextStyle(fontSize = 12.sp),
+                    style = TextStyle(fontSize = 7.sp),
                 )
             }
         }

@@ -3,7 +3,6 @@ package com.example.yumrush
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
@@ -11,11 +10,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -41,11 +38,11 @@ fun LoginScreen(navController: NavController) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
-            painter = painterResource(id = R.drawable.yumrushlogo), // Replace with your image resource
+            painter = painterResource(id = R.drawable.yumrushlogo),
             contentDescription = null,
             modifier = Modifier
-                .size(350.dp)
-                .clip(MaterialTheme.shapes.medium),
+                .size(300.dp)
+                .clip(MaterialTheme.shapes.small),
             contentScale = ContentScale.FillWidth
         )
 
@@ -57,8 +54,8 @@ fun LoginScreen(navController: NavController) {
             label = { Text("Email") },
             modifier = Modifier.fillMaxWidth(),
             colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = Color.Transparent, // Remove the border
-                unfocusedBorderColor = Color.Transparent // Remove the border
+                focusedBorderColor = Color(0xFFCB202D),
+                unfocusedBorderColor = Color(0xFFCB202D)
             )
         )
 
@@ -71,8 +68,8 @@ fun LoginScreen(navController: NavController) {
             visualTransformation = PasswordVisualTransformation(),
             modifier = Modifier.fillMaxWidth(),
             colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = Color.Transparent, // Remove the border
-                unfocusedBorderColor = Color.Transparent // Remove the border
+                focusedBorderColor = Color(0xFFCB202D),
+                unfocusedBorderColor = Color(0xFFCB202D)
             ),
             keyboardOptions = KeyboardOptions(
                 imeAction = ImeAction.Done
@@ -92,8 +89,8 @@ fun LoginScreen(navController: NavController) {
             },
             modifier = Modifier
                 .fillMaxWidth()
-                .height(50.dp), // Adjust button height as needed
-            colors = ButtonDefaults.buttonColors(Color(0xFFCB202D)), // Red button color
+                .height(50.dp),
+            colors = ButtonDefaults.buttonColors(Color(0xFFCB202D)),
         ) {
             Text(
                 text = "Login",

@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -19,7 +18,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CardElevation
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -37,14 +35,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.example.yumrush.CartViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RestaurantItemsScreen(navController: NavController,
-                          restaurantId: String,
-                          restaurantItems: List<RestaurantItem>) {
-    val cartViewModel: CartViewModel = viewModel()
+fun RestaurantItemsScreen(
+    navController: NavController,
+    restaurantId: String,
+    restaurantItems: List<RestaurantItem>,
+    cartViewModel: CartViewModel
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -55,6 +54,9 @@ fun RestaurantItemsScreen(navController: NavController,
         TopAppBar(
             title = {
                 Text(text = "Restaurant Items")
+            },
+            actions = {
+                CartIcon(navController, cartViewModel)
             },
             navigationIcon = {
                 IconButton(
@@ -70,12 +72,15 @@ fun RestaurantItemsScreen(navController: NavController,
             },
             modifier = Modifier.fillMaxWidth()
         )
-
-        // Display restaurant items with images here
         restaurantItems.forEach { item ->
             RestaurantItemCardWithImage(item) {
-                // Implement "Add to Cart" functionality here
-                val cartItem = CartItem(item.name, item.price)
+                val restaurantName = when (restaurantId) {
+                    "1" -> "President Dhaba"
+                    "2" -> "UTK"
+                    "3" -> "C53"
+                    else -> ""
+                }
+                val cartItem = CartItem(item.name, item.price, restaurantName, quantity = 1)
                 cartViewModel.addItemToCart(cartItem)
             }
         }
@@ -108,15 +113,15 @@ fun RestaurantItemCardWithImage(
             Column(
                 modifier = Modifier.weight(1f)
             ) {
-                Text(text = item.name, style = TextStyle(fontSize = 8.sp))
-                Text(text = "Price: ${item.price}", style = TextStyle(fontSize = 16.sp))
+                Text(text = item.name, style = TextStyle(fontSize = 9.sp))
+                Text(text = "Price: ${item.price}", style = TextStyle(fontSize = 13.sp))
             }
             Spacer(modifier = Modifier.width(16.dp))
             Button(
                 onClick = { onAddToCart() },
                 modifier = Modifier
                     .padding(10.dp),
-                colors = ButtonDefaults.buttonColors(Color(0xFFCB202D)) // Red button color
+                colors = ButtonDefaults.buttonColors(Color(0xFFCB202D))
             ) {
                 Text(text = "Add to Cart", style = TextStyle(color = Color.White))
             }
